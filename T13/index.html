@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pemesanan Tiket Bioskop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            background-image: url('background5.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+        form {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        input[type="text"], input[type="number"], select, input[type="date"], input[type="time"] {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        input[type="text"]:focus, input[type="number"]:focus, select:focus, input[type="date"]:focus, input[type="time"]:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+        }
+        input[type="radio"], input[type="checkbox"] {
+            display: none;
+        }
+        .film-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .film-option {
+            width: 100%;
+            max-width: 200px;
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .film-option img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px 8px 0 0;
+        }
+        .film-option .studio {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        .film-option .film-info {
+            padding: 10px;
+            background-color: #fff;
+        }
+        .film-option h3 {
+            margin: 0;
+            font-size: 16px;
+            color: #333;
+        }
+        .film-option p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        .film-option:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+        }
+        .film-option input[type="radio"]:checked + label {
+            border: 2px solid #4CAF50;
+            box-shadow: 0px 0px 8px rgba(76, 175, 80, 0.8);
+        }
+        .kursi-container {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr); /* 6 kolom untuk lebih menarik */
+            gap: 10px;
+            justify-items: center;
+            align-items: center;
+        }
+        .kursi-option label {
+            display: block;
+            position: relative;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .kursi-option input[type="checkbox"] {
+            display: none;
+        }
+        .kursi-option input[type="checkbox"]:checked + label {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+        .kursi-option label:hover {
+            background-color: #e0e0e0;
+        }
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            display: block;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pemesanan Tiket Bioskop</h1>
+    <form action="proses_pemesanan.php" method="post">
+        <label for="nama">Nama:</label>
+        <input type="text" id="nama" name="nama" required><br><br>
+
+        <label>Pilih Film:</label><br>
+        <div class="film-container">
+            <!-- Opsi Film -->
+            <div class="film-option">
+                <input type="radio" id="exhuma" name="film" value="Exhuma" required>
+                <label for="exhuma">
+                    <img src="exhuma.jpg" alt="Exhuma">
+                    <div class="studio">Studio 1</div>
+                    <div class="film-info">
+                        <h3>Exhuma</h3>
+                        <p>Rp 50.000</p>
+                    </div>
+                </label>
+            </div>
+            <div class="film-option">
+                <input type="radio" id="pengabdi_setan" name="film" value="Pengabdi Setan" required>
+                <label for="pengabdi_setan">
+                    <img src="pengabdi setan.jpg" alt="Pengabdi Setan">
+                    <div class="studio">Studio 2</div>
+                    <div class="film-info">
+                        <h3>Pengabdi Setan</h3>
+                        <p>Rp 50.000</p>
+                    </div>
+                </label>
+            </div>
+            <div class="film-option">
+                <input type="radio" id="dilan" name="film" value="Dilan" required>
+                <label for="dilan">
+                    <img src="dilan.jpg" alt="Dilan">
+                    <div class="studio">Studio 3</div>
+                    <div class="film-info">
+                        <h3>Dilan</h3>
+                        <p>Rp 50.000</p>
+                    </div>
+                </label>
+            </div>
+            <div class="film-option">
+                <input type="radio" id="pemandi_jenazah" name="film" value="Pemandi Jenazah" required>
+                <label for="pemandi_jenazah">
+                    <img src="pemandi jenazah.jpg" alt="Pemandi Jenazah">
+                    <div class="studio">Studio 4</div>
+                    <div class="film-info">
+                        <h3>Pemandi Jenazah</h3>
+                        <p>Rp 50.000</p>
+                    </div>
+                </label>
+            </div>
+            <div class="film-option">
+                <input type="radio" id="ipar_maut" name="film" value="Ipar Maut" required>
+                <label for="ipar_maut">
+                    <img src="ipar maut.jpg" alt="Ipar Maut">
+                    <div class="studio">Studio 5</div>
+                    <div class="film-info">
+                        <h3>Ipar Maut</h3>
+                        <p>Rp 50.000</p>
+                    </div>
+                </label>
+            </div>
+            <!-- Film Baru: Agak Laen -->
+            <div class="film-option">
+                <input type="radio" id="agak_laen" name="film" value="Agak Laen" required>
+                <label for="agak_laen">
+                    <img src="agak laen.jpg" alt="Agak Laen">
+                    <div class="studio">Studio 6</div>
+                    <div class="film-info">
+                        <h3>Agak Laen</h3>
+                        <p>Rp 50.000</p>
+                    </div>
+                </label>
+            </div>
+        </div><br>
+
+        <label for="kursi">Pilih Kursi:</label>
+        <div class="kursi-container">
+            <!-- Opsi Kursi -->
+            <div class="kursi-option">
+                <input type="checkbox" id="a1" name="kursi[]" value="A1">
+                <label for="a1">A1</label>
+            </div>
+            <div class="kursi-option">
+                <input type="checkbox" id="a2" name="kursi[]" value="A2">
+                <label for="a2">A2</label>
+            </div>
+            <div class="kursi-option">
+                <input type="checkbox" id="a3" name="kursi[]" value="A3">
+                <label for="a3">A3</label>
+            </div>
+            <div class="kursi-option">
+                <input type="checkbox" id="b1" name="kursi[]" value="B1">
+                <label for="b1">B1</label>
+            </div>
+            <div class="kursi-option">
+                <input type="checkbox" id="b2" name="kursi[]" value="B2">
+                <label for="b2">B2</label>
+            </div>
+            <div class="kursi-option">
+                <input type="checkbox" id="b3" name="kursi[]" value="B3">
+                <label for="b3">B3</label>
+            </div>
+            <div class="kursi-option">
+                <input type="checkbox" id="c1" name="kursi[]" value="C1">
+                <label for="c1">C1</label>
+            </div>
+            <div class="kursi-option">
+                <input type="checkbox" id="c2" name="kursi[]" value="C2">
+                <label for="c2">C2</label>
+            </div>
+            <div class="kursi-option">
+                <input type="checkbox" id="c3" name="kursi[]" value="C3">
+                <label for="c3">C3</label>
+            </div>
+            <div class="kursi-option">
+                <input type="checkbox" id="d1" name="kursi[]" value="D1">
+                <label for="d1">D1</label>
+            </div>
+            <div class="kursi-option">
+                <input type="checkbox" id="d2" name="kursi[]" value="D2">
+                <label for="d2">D2</label>
+            </div>
+            <div class="kursi-option">
+                <input type="checkbox" id="d3" name="kursi[]" value="D3">
+                <label for="d3">D3</label>
+            </div>
+            <div class="kursi-option">
+                <input type="checkbox" id="e1" name="kursi[]" value="E1">
+                <label for="e1">E1</label>
+            </div>
+            <div class="kursi-option">
+                <input type="checkbox" id="e2" name="kursi[]" value="E2">
+                <label for="e2">E2</label>
+            </div>
+            <div class="kursi-option">
+                <input type="checkbox" id="e3" name="kursi[]" value="E3">
+                <label for="e3">E3</label>
+            </div>
+            <div class="kursi-option">
+                <input type="checkbox" id="f1" name="kursi[]" value="F1">
+                <label for="f1">F1</label>
+            </div>
+            <div class="kursi-option">
+                <input type="checkbox" id="f2" name="kursi[]" value="F2">
+                <label for="f2">F2</label>
+            </div>
+            <div class="kursi-option">
+                <input type="checkbox" id="f3" name="kursi[]" value="F3">
+                <label for="f3">F3</label>
+            </div>
+        </div><br>
+
+        <label for="jumlah_tiket">Jumlah Tiket:</label>
+        <input type="number" id="jumlah_tiket" name="jumlah_tiket" min="1" max="10" required><br><br>
+
+        <label for="tanggal">Tanggal:</label>
+        <input type="date" id="tanggal" name="tanggal" required><br><br>
+
+        <label for="waktu">Waktu:</label>
+        <input type="time" id="waktu" name="waktu" required><br><br>
+
+        <label for="studio">Studio:</label>
+        <select id="studio" name="studio" required>
+            <option value="Studio 1">Studio 1</option>
+            <option value="Studio 2">Studio 2</option>
+            <option value="Studio 3">Studio 3</option>
+            <option value="Studio 4">Studio 4</option>
+            <option value="Studio 5">Studio 5</option>
+            <option value="Studio 6">Studio 6</option>
+        </select><br><br>
+
+        <label for="metode_pembayaran">Metode Pembayaran:</label>
+        <select id="metode_pembayaran" name="metode_pembayaran" required>
+            <option value="CASH">CASH</option>
+            <option value="BCA">BCA</option>
+            <option value="MANDIRI">MANDIRI</option>
+            <option value="BNI">BNI</option>
+        </select><br><br>
+
+        <button type="submit">Pesan</button>
+    </form>
+</body>
+</html>
